@@ -14,6 +14,8 @@ namespace HotelManagement.Models
         public int NumberOfDaysStay { get; set; }
         public int Price { get; set; }
 
+        public DateTime BookingDate { get; set; }
+
 
     }
 }

@@ -58,6 +58,13 @@ namespace HotelManagement.API
                 app.UseSwaggerUI();
             }
 
+            app.UseCors(opt =>
+            {
+                opt.AllowAnyHeader();
+                opt.AllowAnyOrigin();
+                opt.AllowAnyMethod();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseAuthorization();

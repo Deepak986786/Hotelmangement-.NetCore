@@ -46,7 +46,8 @@ namespace HotelManagement.API.Controllers
                     UserId = vm.UserId,
                     NumberOfDaysStay = vm.NumberOfDaysStay,
                     RoomNo = totalBookings + 1,
-                    Price = vm.NumberOfDaysStay * price
+                    Price = vm.NumberOfDaysStay * price,
+                    BookingDate = DateTime.Today
                     
                  };
 
