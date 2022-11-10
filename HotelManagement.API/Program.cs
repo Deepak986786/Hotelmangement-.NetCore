@@ -36,13 +36,7 @@ namespace HotelManagement.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("HotelManagementEF"));
             });
 
-            // Adding Services related to User.
-            builder.Services.AddTransient<IUserService, UserServiceV1>();
-            builder.Services.AddTransient<IRepository<User, string>,UserEFRepository>();
-
-            // Adding Services related to Booking
-            builder.Services.AddTransient<IBookingService, BookingServiceV1>();
-            builder.Services.AddTransient<IRepository<Booking,string>,BookingEFRepository>();
+     
 
 
             //add repository and services to the Service Collection

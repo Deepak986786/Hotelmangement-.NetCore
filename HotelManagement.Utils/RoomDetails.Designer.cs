@@ -40,7 +40,6 @@ namespace HotelManagement.Utils {
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
 
-        internal static global::System.Resources.ResourceManager ResourceManager {
 
         public static global::System.Resources.ResourceManager ResourceManager {
 
@@ -59,7 +58,6 @@ namespace HotelManagement.Utils {
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
 
-        internal static global::System.Globalization.CultureInfo Culture {
 
         public static global::System.Globalization.CultureInfo Culture {
 
@@ -75,7 +73,6 @@ namespace HotelManagement.Utils {
         ///   Looks up a localized string similar to 500.
         /// </summary>
 
-        internal static string Price {
 
         public static string Price {
 
@@ -88,7 +85,6 @@ namespace HotelManagement.Utils {
         ///   Looks up a localized string similar to 25.
         /// </summary>
 
-        internal static string TotalRooms {
 
         public static string TotalRooms {
 
