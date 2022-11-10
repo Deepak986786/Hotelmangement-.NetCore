@@ -22,7 +22,11 @@ namespace HotelManagement.Utils {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+<<<<<<< Updated upstream
     internal class RoomDetails {
+=======
+    public class RoomDetails {
+>>>>>>> Stashed changes
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +40,11 @@ namespace HotelManagement.Utils {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+<<<<<<< Updated upstream
         internal static global::System.Resources.ResourceManager ResourceManager {
+=======
+        public static global::System.Resources.ResourceManager ResourceManager {
+>>>>>>> Stashed changes
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("HotelManagement.Utils.RoomDetails", typeof(RoomDetails).Assembly);
@@ -51,7 +59,11 @@ namespace HotelManagement.Utils {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
+<<<<<<< Updated upstream
         internal static global::System.Globalization.CultureInfo Culture {
+=======
+        public static global::System.Globalization.CultureInfo Culture {
+>>>>>>> Stashed changes
             get {
                 return resourceCulture;
             }
@@ -63,7 +75,11 @@ namespace HotelManagement.Utils {
         /// <summary>
         ///   Looks up a localized string similar to 500.
         /// </summary>
+<<<<<<< Updated upstream
         internal static string Price {
+=======
+        public static string Price {
+>>>>>>> Stashed changes
             get {
                 return ResourceManager.GetString("Price", resourceCulture);
             }
@@ -72,7 +88,11 @@ namespace HotelManagement.Utils {
         /// <summary>
         ///   Looks up a localized string similar to 25.
         /// </summary>
+<<<<<<< Updated upstream
         internal static string TotalRooms {
+=======
+        public static string TotalRooms {
+>>>>>>> Stashed changes
             get {
                 return ResourceManager.GetString("TotalRooms", resourceCulture);
             }
