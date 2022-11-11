@@ -11,7 +11,7 @@ namespace HotelManagement.Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Users",
+                name: "User",
                 columns: table => new
                 {
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -23,7 +23,7 @@ namespace HotelManagement.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.Email);
+                    table.PrimaryKey("PK_User", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -41,9 +41,9 @@ namespace HotelManagement.Repository.Migrations
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_Users_UserId",
+                        name: "FK_Bookings_User_UserId",
                         column: x => x.UserId,
-                        principalTable: "Users",
+                        principalTable: "User",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -61,7 +61,7 @@ namespace HotelManagement.Repository.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "User");
         }
     }
 }
