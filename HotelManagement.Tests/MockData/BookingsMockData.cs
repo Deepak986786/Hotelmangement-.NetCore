@@ -17,24 +17,25 @@ namespace HotelManagement.Tests.MockData
                 {
                     Id = 1,
                     UserId = "srilakshmi27272@gmail.com",
-                    RoomNo = 1,
+           
                     NumberOfDaysStay = 1,
-                    Price = 500
+                    Price = 500,
+                    BookingDate = DateTime.Today
                 },
                 new Booking {
                     Id = 2,
                     UserId = "santhosh@gmail.com",
-                    RoomNo = 2,
                     NumberOfDaysStay = 3,
-                    Price = 1500
+                    Price = 1500,
+                    BookingDate = DateTime.Today
 
                 },
                 new Booking {
                     Id = 3,
                     UserId = "eswaree@gmail.com",
-                    RoomNo = 3,
                     NumberOfDaysStay = 2,
-                    Price = 1000
+                    Price = 1000,
+                    BookingDate = DateTime.Today
 
                 }
 

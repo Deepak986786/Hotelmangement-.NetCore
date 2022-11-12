@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Resources;
 using HotelManagement.Utils;
 using HotelManagement.API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelManagement.API.Controllers
 {
@@ -40,11 +41,9 @@ namespace HotelManagement.API.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] BookingVm vm)
         {
-
-            
-
             var Bookings= await bookingService.GetAllBookings();
             var totalBookings= Bookings.Count;
 
@@ -58,8 +57,8 @@ namespace HotelManagement.API.Controllers
                 {
                     UserId = vm.UserId,
                     NumberOfDaysStay = vm.NumberOfDaysStay,
-                    RoomNo = totalBookings + 1,
-                    Price = vm.NumberOfDaysStay * price
+                    Price = vm.NumberOfDaysStay * price,
+                    BookingDate = DateTime.Today
                     
                  };
 
@@ -89,7 +88,6 @@ namespace HotelManagement.API.Controllers
             {   Id = bookingId,
                 UserId = vm.UserId,
                 NumberOfDaysStay = vm.NumberOfDaysStay,
-                RoomNo = book.RoomNo,
                 Price = vm.NumberOfDaysStay * (Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price")))
             };
 

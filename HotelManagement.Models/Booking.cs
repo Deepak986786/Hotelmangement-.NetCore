@@ -11,10 +11,10 @@ namespace HotelManagement.Models
     {
         public int Id { get; set; }
         public string UserId { get; set; }
-        public int RoomNo { get; set; }
+        
         public int NumberOfDaysStay { get; set; }
         public int Price { get; set; }
-
+        public DateTime BookingDate { get; set; }
 
     }
 }

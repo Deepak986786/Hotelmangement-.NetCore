@@ -30,7 +30,8 @@ namespace HotelManagement.API.Controllers
         private object _configuration;
 
         // Constructor for UsersController with dependency injection of userService, configuration and logger
-        public UsersController(IUserService userService, 
+        public UsersController(
+            IUserService userService, 
             IConfiguration configuration,
             ILogger<UsersController> logger
            )
@@ -40,7 +41,10 @@ namespace HotelManagement.API.Controllers
             this.logger = logger;
         
         }
-
+       /* public UsersController(IUserService userService)
+        {
+            this.userService = userService;
+        }*/
 
         /// <summary>
         /// API Register method takes user properties and add user to the users table
@@ -72,7 +76,7 @@ namespace HotelManagement.API.Controllers
             await userService.AddUser(user);
             logger.LogInformation("Registration completed");
             return Ok(new {Name= user.Name , Email=user.Email , ProfilePic = user.ProfilePic});
-            
+           
         }
 
 
