@@ -128,7 +128,8 @@ namespace HotelManagement.API.Controllers
         {
             logger.LogInformation("Getting user details");
             var user = await userService.GetUserByEmail(email);
-
+            if (user == null)
+                return NotFound();
             return Ok(user);
         }
     }

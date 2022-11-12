@@ -9,9 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FakeItEasy" Version="7.3.1" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.11" />
     <PackageReference Include="Microsoft.Extensions.Logging.Log4Net.AspNetCore" Version="6.1.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.1.0" />
+    <PackageReference Include="Moq" Version="4.18.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.3">
@@ -22,6 +24,18 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HotelManagement.API\HotelManagement.API.csproj" />
+    <ProjectReference Include="..\HotelManagement.Models\HotelManagement.Models.csproj" />
+    <ProjectReference Include="..\HotelManagement.Repository\HotelManagement.Repository.csproj" />
+    <ProjectReference Include="..\HotelManagement.Services\HotelManagement.Services.csproj" />
+    <ProjectReference Include="..\HotelManagement.Utils\HotelManagement.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

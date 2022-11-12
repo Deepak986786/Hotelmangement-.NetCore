@@ -33,7 +33,8 @@ namespace HotelManagement.API.Controllers
         public async Task<IActionResult> GetBookings()
         {
             var result = await bookingService.GetAllBookings();
-
+            if (result.Count == 0)
+                return NoContent();
             return Ok(result);
         }
 
