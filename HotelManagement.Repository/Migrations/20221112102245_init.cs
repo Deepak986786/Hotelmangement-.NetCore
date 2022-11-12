@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -11,7 +12,7 @@ namespace HotelManagement.Repository.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Email = table.Column<string>(type: "nvarchar(450)", nullable: false),
@@ -23,7 +24,7 @@ namespace HotelManagement.Repository.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Email);
+                    table.PrimaryKey("PK_Users", x => x.Email);
                 });
 
             migrationBuilder.CreateTable(
@@ -33,17 +34,17 @@ namespace HotelManagement.Repository.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    RoomNo = table.Column<int>(type: "int", nullable: false),
                     NumberOfDaysStay = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    BookingDate = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Bookings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Bookings_User_UserId",
+                        name: "FK_Bookings_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -61,7 +62,7 @@ namespace HotelManagement.Repository.Migrations
                 name: "Bookings");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Resources;
 using HotelManagement.Utils;
 using HotelManagement.API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Logging;
 
 namespace HotelManagement.API.Controllers
 {
@@ -12,11 +14,15 @@ namespace HotelManagement.API.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly IBookingService bookingService;
+        private readonly IConfiguration configuration;
+        private readonly ILogger<BookingsController> logger;
 
         // Constructor for BookingsController with dependency injection of bookingService.
-        public BookingsController(IBookingService bookingService)
+        public BookingsController(IBookingService bookingService, IConfiguration configuration, ILogger<BookingsController> logger)
         {
             this.bookingService = bookingService;
+            this.configuration = configuration;
+            this.logger = logger;
         }
 
 
@@ -26,12 +32,13 @@ namespace HotelManagement.API.Controllers
         /// <param name="booking"></param>
         /// <returns>booking object</returns>
 
-     
+
 
 
         [HttpGet]
         public async Task<IActionResult> GetBookings()
         {
+            logger.LogInformation("");
             var result = await bookingService.GetAllBookings();
 
             return Ok(result);
@@ -39,16 +46,17 @@ namespace HotelManagement.API.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] BookingVm vm)
         {
 
-          
 
-            var Bookings= await bookingService.GetAllBookings();
-            var totalBookings= Bookings.Count;
+
+            var Bookings = await bookingService.GetAllBookings();
+            var totalBookings = Bookings.Count;
 
             var totalRooms = RoomDetails.ResourceManager.GetString("TotalRooms");
-            var price =Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price"));
+            var price = Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price"));
 
 
             if (totalBookings < Convert.ToInt32(totalRooms))
@@ -57,10 +65,11 @@ namespace HotelManagement.API.Controllers
                 {
                     UserId = vm.UserId,
                     NumberOfDaysStay = vm.NumberOfDaysStay,
-                    RoomNo = totalBookings + 1,
-                    Price = vm.NumberOfDaysStay * price
-                    
-                 };
+
+                    Price = vm.NumberOfDaysStay * price,
+                    BookingDate = DateTime.Today
+
+                };
 
                 await bookingService.AddBooking(booking);
                 return Ok(booking);
@@ -85,10 +94,11 @@ namespace HotelManagement.API.Controllers
         {
             var book = await bookingService.GetBooking(bookingId);
             var booking = new Booking()
-            {   Id = bookingId,
+            {
+                Id = bookingId,
                 UserId = vm.UserId,
                 NumberOfDaysStay = vm.NumberOfDaysStay,
-                RoomNo = book.RoomNo,
+
                 Price = vm.NumberOfDaysStay * (Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price")))
             };
 

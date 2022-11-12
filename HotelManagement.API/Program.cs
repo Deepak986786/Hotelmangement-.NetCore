@@ -29,7 +29,6 @@ namespace HotelManagement.API
                             });
 
             // Adding JWt services Here
-
             builder
         .Services
         .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -57,26 +56,22 @@ namespace HotelManagement.API
 
             builder.Services.AddDbContext<DataBaseContext>(options =>
             {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("HotelManagementEF"));
+                options.UseSqlServer(builder.Configuration.
+                    GetConnectionString("HotelManagementEF"));
             });
 
-            // Adding Services related to User.
-            builder.Services.AddTransient<IUserService, UserServiceV1>();
-            builder.Services.AddTransient<IRepository<User, string>,UserEFRepository>();
 
-            // Adding Services related to Booking
-            builder.Services.AddTransient<IBookingService, BookingServiceV1>();
-            
+            builder.Host.ConfigureLogging(logging => logging.AddLog4Net("log4net.config"));
 
             //add repository and services to the Service Collection
             builder.Services.AddTransient<IUserService, UserServiceV1>();
-            builder.Services.AddTransient<IRepository<User, string>,UserEFRepository>();
+            builder.Services.AddTransient<IRepository<User, string>, UserEFRepository>();
 
 
             builder.Services.AddTransient<IBookingService, BookingServiceV1>();
-            builder.Services.AddTransient<IRepository<Booking, int>,BookingEFRepository>();
+            builder.Services.AddTransient<IRepository<Booking, int>, BookingEFRepository>();
 
-           
+
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -100,6 +95,7 @@ namespace HotelManagement.API
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
