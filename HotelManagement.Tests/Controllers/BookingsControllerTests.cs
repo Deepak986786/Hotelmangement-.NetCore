@@ -13,26 +13,33 @@ namespace HotelManagement.Tests.Controllers
 {
     public class BookingsControllerTests
     {
+        /// <summary>
+        /// The test method name include methodname+testing scenario name.
+        /// This test calls the getallbookings of controller by mocking the booking service
+        /// </summary>
+       
         [Fact]
-        public async Task GetAllBookings_Should_Return200Status()
+        public async Task GetAllBookings_ShouldReturn200Status()
         {
             // Arrange
             var bookingService = new Mock<IBookingService>();
             bookingService.Setup(x => x.GetAllBookings())
                 .Returns(Task.FromResult(BookingsMockData.GetBookings()));
-            var bookingController = new BookingsController(bookingService.Object);
+            // sut - system under test is recommended naming convention 
+            var sut = new BookingsController(bookingService.Object);
 
             // Act
-            var result = (OkObjectResult) await bookingController.GetBookings();
+            var result = (OkObjectResult) await sut.GetBookings();
 
 
             // Assert
             Assert.Equal(200, result.StatusCode);
             
         }
+        
 
         [Fact]
-        public async Task GetAllBookings_Should_Return204NoContentStatus()
+        public async Task GetAllBookings_Should_Return204NoContentStatusForEmptyData()
         {
             // Arrange
             var bookingService = new Mock<IBookingService>();
