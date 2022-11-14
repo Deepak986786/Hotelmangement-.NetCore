@@ -14,7 +14,7 @@ namespace HotelManagement.Models
             public string PhoneNumber { get; set; }
             public string AadhaarId { get; set; }
 
-            public virtual List<Booking> userBookings { get; set; }
+            public virtual List<Booking> UserBookings { get; set; }
 
 
         }
