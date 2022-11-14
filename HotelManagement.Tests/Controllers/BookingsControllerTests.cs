@@ -103,9 +103,12 @@ namespace HotelManagement.Tests.Controllers
         public async Task UpdateBooking_Should_Return202OnSuccessfulUpdation()
         {
             // Arrange
-            var booking = BookingsMockData.GetBookings().First();
+            //var booking = BookingsMockData.GetBookings().First();
+            var booking = BookingsMockData.GetBooking(1);
             var bookingViewModel = BookingsMockData.GetBookingVms().First();
-            
+
+            bookingService.Setup(b => b.GetBooking(1)).ReturnsAsync(booking);
+
             bookingService.Setup(b => b.UpdateBooking(booking));
             sut = new BookingsController(bookingService.Object);
 

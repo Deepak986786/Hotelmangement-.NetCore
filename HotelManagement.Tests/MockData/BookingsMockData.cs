@@ -73,9 +73,16 @@ namespace HotelManagement.Tests.MockData
         {
             return new List<Booking>();
         }
-        /*public static void DeleteBooking(int id)
+        public static Booking GetBooking(int id)
         {
-
-        }*/
+            return new Booking
+            {
+                Id = 1,
+                UserId = "srilakshmi27272@gmail.com",
+                NumberOfDaysStay = 1,
+                Price = 500,
+                BookingDate = DateTime.Today
+            };
+        }
     }
 }
