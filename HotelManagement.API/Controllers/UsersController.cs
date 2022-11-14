@@ -18,7 +18,7 @@ namespace HotelManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [ExceptionMapper(ExceptionType = typeof(InvalidIdException), StatusCode = 401, Message = "No such user exists")]
     public class UsersController : ControllerBase
     {
         // Declaring user service

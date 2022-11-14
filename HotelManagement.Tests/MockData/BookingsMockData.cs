@@ -47,5 +47,9 @@ namespace HotelManagement.Tests.MockData
         {
             return new List<Booking>();
         }
+        /*public static void DeleteBooking(int id)
+        {
+
+        }*/
     }
 }

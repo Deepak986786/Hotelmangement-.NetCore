@@ -54,5 +54,22 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(204, result.StatusCode);
             bookingService.Verify(_ => _.GetAllBookings(), Times.Exactly(1));
         }
+        /*[Fact]
+        public async Task DeleteBooking_Should_Return204NoContentStatusOnSuccessfulDeletion()
+        {
+            // Arrange
+            var bookingService = new Mock<IBookingService>();
+            bookingService.Setup(b => b.DeleteBooking(1))
+                .Returns(Task.FromResult(BookingsMockData.DeleteBooking(1)));
+            var bookingController = new BookingsController(bookingService.Object);
+
+            // Act
+            var result = (NoContentResult)await bookingController.DeleteBooking(1);
+
+            // Assert
+            Assert.Equal(204, result.StatusCode);
+            
+        }*/
+
     }
 }
