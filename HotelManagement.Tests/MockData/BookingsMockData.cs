@@ -1,4 +1,5 @@
-﻿using HotelManagement.Models;
+﻿using HotelManagement.API.ViewModel;
+using HotelManagement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,31 @@ namespace HotelManagement.Tests.MockData
                     NumberOfDaysStay = 2,
                     Price = 1000,
                     BookingDate = DateTime.Today
+
+                }
+
+
+        };
+        }
+
+        public static List<BookingVm> GetBookingVms()
+        {
+            return new List<BookingVm>
+            {
+                new BookingVm
+                {
+                    UserId = "srilakshmi27272@gmail.com",
+                    NumberOfDaysStay = 1
+                    
+                },
+                new BookingVm {
+                    UserId = "santhosh@gmail.com",
+                    NumberOfDaysStay = 3
+
+                },
+                new BookingVm {
+                    UserId = "eswaree@gmail.com",
+                    NumberOfDaysStay = 2
 
                 }
 

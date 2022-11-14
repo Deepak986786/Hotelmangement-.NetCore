@@ -124,7 +124,7 @@ namespace HotelManagement.API.Controllers
         }
 
         /// <summary>
-        /// API getUser method takes user email and get user details from user service
+        /// API GetUser method takes user email and get user details from user service
         /// </summary>
         /// <param name="email"></param>
         /// <returns>user</returns>
@@ -137,6 +137,10 @@ namespace HotelManagement.API.Controllers
                 return NotFound();
             return Ok(user);
         }
+        /// <summary>
+        /// Api GetAllUsers get all users from user service
+        /// </summary>
+        /// <returns>users or empty data</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {

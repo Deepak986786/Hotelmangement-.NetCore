@@ -1,5 +1,7 @@
-﻿using HotelManagement.API.Controllers;
+﻿using FluentAssertions;
+using HotelManagement.API.Controllers;
 using HotelManagement.Services.BookingService;
+using HotelManagement.Services.UserService;
 using HotelManagement.Tests.MockData;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -17,16 +19,22 @@ namespace HotelManagement.Tests.Controllers
         /// The test method name include methodname+testing scenario name.
         /// This test calls the getallbookings of controller by mocking the booking service
         /// </summary>
-       
+        private BookingsController sut;
+        private Mock<IBookingService> bookingService;
+        public BookingsControllerTests()
+        {
+            bookingService = new Mock<IBookingService>();
+        }
+
         [Fact]
         public async Task GetAllBookings_ShouldReturn200Status()
         {
             // Arrange
-            var bookingService = new Mock<IBookingService>();
+            // var bookingService = new Mock<IBookingService>();
             bookingService.Setup(x => x.GetAllBookings())
                 .Returns(Task.FromResult(BookingsMockData.GetBookings()));
             // sut - system under test is recommended naming convention 
-            var sut = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object);
 
             // Act
             var result = (OkObjectResult) await sut.GetBookings();
@@ -42,34 +50,89 @@ namespace HotelManagement.Tests.Controllers
         public async Task GetAllBookings_Should_Return204NoContentStatusForEmptyData()
         {
             // Arrange
-            var bookingService = new Mock<IBookingService>();
+            
             bookingService.Setup(b => b.GetAllBookings())
                 .Returns(Task.FromResult(BookingsMockData.GetEmptyBookings()));
-            var bookingController = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object);
 
             // Act
-            var result = (NoContentResult)await bookingController.GetBookings();
+            var result = (NoContentResult)await sut.GetBookings();
 
             // Assert
             Assert.Equal(204, result.StatusCode);
             bookingService.Verify(_ => _.GetAllBookings(), Times.Exactly(1));
         }
-        /*[Fact]
+
+        [Fact]
+        public async Task AddBooking_Should_Return201ForSuccessfulBooking()
+        {
+            // Arrange
+
+            var booking = BookingsMockData.GetBookings().First();
+            var bookingModel = BookingsMockData.GetBookingVms().First();
+
+            bookingService.Setup(b => b.AddBooking(booking))
+                .ReturnsAsync(booking);
+            // sut - system under test is recommended naming convention 
+             sut = new BookingsController(bookingService.Object);
+
+            // Act
+            var result = (CreatedResult)await sut.Create(bookingModel);
+
+
+            // Assert
+            result.StatusCode.Should().Be(201);
+        }
+
+        [Fact]
         public async Task DeleteBooking_Should_Return204NoContentStatusOnSuccessfulDeletion()
         {
             // Arrange
-            var bookingService = new Mock<IBookingService>();
-            bookingService.Setup(b => b.DeleteBooking(1))
-                .Returns(Task.FromResult(BookingsMockData.DeleteBooking(1)));
-            var bookingController = new BookingsController(bookingService.Object);
+            var bookingId = BookingsMockData.GetBookings().First().Id;
+            bookingService.Setup(b => b.DeleteBooking(bookingId));
+            sut = new BookingsController(bookingService.Object);
 
             // Act
-            var result = (NoContentResult)await bookingController.DeleteBooking(1);
+            var result = (NoContentResult)await sut.DeleteBooking(bookingId);
 
             // Assert
             Assert.Equal(204, result.StatusCode);
+
+        }
+        [Fact]
+        public async Task UpdateBooking_Should_Return202OnSuccessfulUpdation()
+        {
+            // Arrange
+            var booking = BookingsMockData.GetBookings().First();
+            var bookingViewModel = BookingsMockData.GetBookingVms().First();
             
-        }*/
+            bookingService.Setup(b => b.UpdateBooking(booking));
+            sut = new BookingsController(bookingService.Object);
+
+            // Act
+            var result = (AcceptedResult)await sut.UpdateBooking(bookingViewModel,booking.Id);
+
+            // Assert
+            Assert.Equal(202, result.StatusCode);
+
+        }
+        [Fact]
+        public async Task UpdateBooking_Should_Return400ForInvalidBookingId()
+        {
+            // Arrange
+            var booking = BookingsMockData.GetBookings().First();
+            var bookingViewModel = BookingsMockData.GetBookingVms().First();
+
+            bookingService.Setup(b => b.UpdateBooking(booking));
+            sut = new BookingsController(bookingService.Object);
+
+            // Act
+            var result = (BadRequestResult)await sut.UpdateBooking(bookingViewModel, 1000);
+
+            // Assert
+            Assert.Equal(400, result.StatusCode);
+
+        }
 
     }
 }

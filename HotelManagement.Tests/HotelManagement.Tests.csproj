@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -32,6 +32,10 @@
     <ProjectReference Include="..\HotelManagement.Repository\HotelManagement.Repository.csproj" />
     <ProjectReference Include="..\HotelManagement.Services\HotelManagement.Services.csproj" />
     <ProjectReference Include="..\HotelManagement.Utils\HotelManagement.Utils.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Repositories\" />
   </ItemGroup>
 
 </Project>

@@ -44,29 +44,31 @@ namespace HotelManagement.API.Controllers
         [Authorize]
         public async Task<IActionResult> Create([FromBody] BookingVm vm)
         {
-            var Bookings= await bookingService.GetAllBookings();
-            var totalBookings= Bookings.Count;
+                var Bookings= await bookingService.GetAllBookings();
+            
+                var totalBookings = Bookings!.Count;
 
-            var totalRooms = RoomDetails.ResourceManager.GetString("TotalRooms");
-            var price =Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price"));
+                var totalRooms = RoomDetails.ResourceManager.GetString("TotalRooms");
+                var price = Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price"));
 
 
-            if (totalBookings < Convert.ToInt32(totalRooms))
-            {
-                var booking = new Booking()
+                if (totalBookings < Convert.ToInt32(totalRooms))
                 {
-                    UserId = vm.UserId,
-                    NumberOfDaysStay = vm.NumberOfDaysStay,
-                    Price = vm.NumberOfDaysStay * price,
-                    BookingDate = DateTime.Today
-                    
-                 };
+                    var booking = new Booking()
+                    {
+                        UserId = vm.UserId,
+                        NumberOfDaysStay = vm.NumberOfDaysStay,
+                        Price = vm.NumberOfDaysStay * price,
+                        BookingDate = DateTime.Today
 
-                await bookingService.AddBooking(booking);
-                return Ok(booking);
-            }
+                    };
 
-            return BadRequest();
+                    await bookingService.AddBooking(booking);
+                    return Created("", booking);
+                }
+            
+           
+           return BadRequest();
 
         }
 
@@ -84,6 +86,8 @@ namespace HotelManagement.API.Controllers
         public async Task<IActionResult> UpdateBooking([FromBody] BookingVm vm, int bookingId)
         {
             var book = await bookingService.GetBooking(bookingId);
+            if(book == null)
+                return BadRequest();
             var booking = new Booking()
             {   Id = bookingId,
                 UserId = vm.UserId,
