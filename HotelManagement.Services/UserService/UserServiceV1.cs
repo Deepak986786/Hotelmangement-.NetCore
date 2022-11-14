@@ -13,6 +13,8 @@ namespace HotelManagement.Services.UserService
     {
         private readonly IRepository<User, string> repository;
 
+      
+
         public UserServiceV1(IRepository<User, string> repository)
         {
             this.repository = repository;
@@ -26,6 +28,13 @@ namespace HotelManagement.Services.UserService
         public async Task DeleteUser(string email)
         {
             await repository.Remove(email);
+        }
+
+        public async Task<List<User>> GetAllUsers()
+        {
+            var users = await repository.GetAll();
+            return users;
+            
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -57,5 +66,7 @@ namespace HotelManagement.Services.UserService
         {
             await Task.CompletedTask;
         }
+
+      
     }
 }

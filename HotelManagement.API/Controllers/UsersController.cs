@@ -1,6 +1,8 @@
 ﻿using HotelManagement.API.ViewModel;
 using HotelManagement.Models;
 using HotelManagement.Services.UserService;
+using HotelManagement.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel;
@@ -24,11 +26,14 @@ namespace HotelManagement.API.Controllers
         IConfiguration configuration;
         private object _configuration;
 
+        private readonly ILogger<UsersController> logger;
+
         // Constructor for UsersController with dependency injection of userService
-        public UsersController(IUserService userService, IConfiguration configuration)
+        public UsersController(IUserService userService, IConfiguration configuration, ILogger<UsersController> logger)
         {
             this.userService = userService;
             this.configuration = configuration;
+            this.logger = logger;
         }
 
 
@@ -52,11 +57,10 @@ namespace HotelManagement.API.Controllers
                 Password = vm.Password,
                 ProfilePic = vm.ProfilePic,
                 PhoneNumber = vm.PhoneNumber,
-                AadhaarId = vm.AadhaarId
-                
+                AadhaarId = vm.AadhaarId                
 
             };
-
+            logger.LogInformation("Register");
             await userService.AddUser(user);
             return Ok(new {Name= user.Name , Email=user.Email , ProfilePic = user.ProfilePic});
         }
@@ -69,7 +73,7 @@ namespace HotelManagement.API.Controllers
         /// <returns>user</returns>
         /// 
         [HttpPost("login")]
-       // [ExceptionMapper(ExceptionType = typeof(InvalidCredentialsException), StatusCode = 401)]
+        [ExceptionMapper(ExceptionType = typeof(InvalidIdException), StatusCode = 404)]
         public async Task<IActionResult> Login([FromBody] LoginInfo loginInfo)
         {
             var user = await userService.Login(loginInfo.Email, loginInfo.Password);
@@ -111,6 +115,8 @@ namespace HotelManagement.API.Controllers
         /// <param name="email"></param>
         /// <returns>user</returns>
         [HttpGet("{email}")]
+        [ExceptionMapper(ExceptionType = typeof(InvalidIdException), StatusCode = 404)]
+    
         public async Task<IActionResult> getUser(string email)
         { 
             var user = await userService.GetUserByEmail(email);

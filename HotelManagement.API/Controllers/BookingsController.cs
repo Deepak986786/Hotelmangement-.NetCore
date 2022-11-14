@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Resources;
 using HotelManagement.Utils;
 using HotelManagement.API.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HotelManagement.API.Controllers
 {
@@ -30,6 +31,7 @@ namespace HotelManagement.API.Controllers
 
 
         [HttpGet]
+
         public async Task<IActionResult> GetBookings()
         {
             var result = await bookingService.GetAllBookings();
@@ -39,6 +41,7 @@ namespace HotelManagement.API.Controllers
 
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> Create([FromBody] BookingVm vm)
         {
 

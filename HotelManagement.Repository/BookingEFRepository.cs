@@ -56,7 +56,7 @@ namespace HotelManagement.Repository
         /// <exception cref="InvalidIdException">if the booking is not in the bookings table 
         /// exception will be thrown</exception>
        
-
+        
         public async Task<Booking> GetById(int id)
 
         {
