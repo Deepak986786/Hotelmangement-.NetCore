@@ -84,5 +84,9 @@ namespace HotelManagement.Tests.MockData
                 BookingDate = DateTime.Today
             };
         }
+        public static int DeleteBooking(int id)
+        {
+            return 1;
+        }
     }
 }

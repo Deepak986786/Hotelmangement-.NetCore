@@ -4,6 +4,8 @@ using HotelManagement.Services.BookingService;
 using HotelManagement.Services.UserService;
 using HotelManagement.Tests.MockData;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -21,9 +23,14 @@ namespace HotelManagement.Tests.Controllers
         /// </summary>
         private BookingsController sut;
         private Mock<IBookingService> bookingService;
+        private IConfiguration _configuration;
+        private ILogger<BookingsController> _logger;
+     
         public BookingsControllerTests()
         {
             bookingService = new Mock<IBookingService>();
+            _configuration = Mock.Of<IConfiguration>();
+            _logger = Mock.Of<ILogger<BookingsController>>();
         }
 
         [Fact]
@@ -34,7 +41,7 @@ namespace HotelManagement.Tests.Controllers
             bookingService.Setup(x => x.GetAllBookings())
                 .Returns(Task.FromResult(BookingsMockData.GetBookings()));
             // sut - system under test is recommended naming convention 
-            sut = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object,_configuration,_logger);
 
             // Act
             var result = (OkObjectResult) await sut.GetBookings();
@@ -53,7 +60,7 @@ namespace HotelManagement.Tests.Controllers
             
             bookingService.Setup(b => b.GetAllBookings())
                 .Returns(Task.FromResult(BookingsMockData.GetEmptyBookings()));
-            sut = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object,_configuration,_logger);
 
             // Act
             var result = (NoContentResult)await sut.GetBookings();
@@ -71,10 +78,33 @@ namespace HotelManagement.Tests.Controllers
             var booking = BookingsMockData.GetBookings().First();
             var bookingModel = BookingsMockData.GetBookingVms().First();
 
+            bookingService.Setup(b => b.GetAllBookings()).ReturnsAsync(BookingsMockData.GetBookings());
             bookingService.Setup(b => b.AddBooking(booking))
                 .ReturnsAsync(booking);
             // sut - system under test is recommended naming convention 
-             sut = new BookingsController(bookingService.Object);
+             sut = new BookingsController(bookingService.Object, _configuration, _logger);
+
+            // Act
+            var result = (CreatedResult)await sut.Create(bookingModel);
+
+
+            // Assert
+            result.StatusCode.Should().Be(201);
+        }
+
+        [Fact]
+        public async Task AddBooking_Should_Return400WhenRoomsAreNotAvailable()
+        {
+            // Arrange
+
+            var booking = BookingsMockData.GetBookings().First();
+            var bookingModel = BookingsMockData.GetBookingVms().First();
+
+            bookingService.Setup(b => b.GetAllBookings()).ReturnsAsync(BookingsMockData.GetBookings());
+            bookingService.Setup(b => b.AddBooking(booking))
+                .ReturnsAsync(booking);
+            // sut - system under test is recommended naming convention 
+            sut = new BookingsController(bookingService.Object, _configuration, _logger);
 
             // Act
             var result = (CreatedResult)await sut.Create(bookingModel);
@@ -90,7 +120,7 @@ namespace HotelManagement.Tests.Controllers
             // Arrange
             var bookingId = BookingsMockData.GetBookings().First().Id;
             bookingService.Setup(b => b.DeleteBooking(bookingId));
-            sut = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object, _configuration, _logger);
 
             // Act
             var result = (NoContentResult)await sut.DeleteBooking(bookingId);
@@ -110,7 +140,7 @@ namespace HotelManagement.Tests.Controllers
             bookingService.Setup(b => b.GetBooking(1)).ReturnsAsync(booking);
 
             bookingService.Setup(b => b.UpdateBooking(booking));
-            sut = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object, _configuration, _logger);
 
             // Act
             var result = (AcceptedResult)await sut.UpdateBooking(bookingViewModel,booking.Id);
@@ -127,7 +157,7 @@ namespace HotelManagement.Tests.Controllers
             var bookingViewModel = BookingsMockData.GetBookingVms().First();
 
             bookingService.Setup(b => b.UpdateBooking(booking));
-            sut = new BookingsController(bookingService.Object);
+            sut = new BookingsController(bookingService.Object, _configuration, _logger);
 
             // Act
             var result = (BadRequestResult)await sut.UpdateBooking(bookingViewModel, 1000);

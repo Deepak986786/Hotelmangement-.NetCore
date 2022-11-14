@@ -13,11 +13,18 @@ namespace HotelManagement.API.Controllers
     public class BookingsController : ControllerBase
     {
         private readonly IBookingService bookingService;
+        // Declaring instance of ILogger.
+        private readonly ILogger<BookingsController> logger;
+        // Declaring instance of configuration.
+        IConfiguration configuration;
 
         // Constructor for BookingsController with dependency injection of bookingService.
-        public BookingsController(IBookingService bookingService)
+        public BookingsController(IBookingService bookingService, IConfiguration configuration,
+            ILogger<BookingsController> logger)
         {
             this.bookingService = bookingService;
+            this.configuration = configuration;
+            this.logger = logger;
         }
 
 
@@ -27,7 +34,7 @@ namespace HotelManagement.API.Controllers
         /// <param name="booking"></param>
         /// <returns>booking object</returns>
 
-     
+
 
 
         [HttpGet]
@@ -44,8 +51,8 @@ namespace HotelManagement.API.Controllers
         [Authorize]
         public async Task<IActionResult> Create([FromBody] BookingVm vm)
         {
+                logger.LogInformation("Creating a booking of user");
                 var Bookings= await bookingService.GetAllBookings();
-            
                 var totalBookings = Bookings!.Count;
 
                 var totalRooms = RoomDetails.ResourceManager.GetString("TotalRooms");
@@ -64,6 +71,7 @@ namespace HotelManagement.API.Controllers
                     };
 
                     await bookingService.AddBooking(booking);
+                    logger.LogInformation("User booking details is created");
                     return Created("", booking);
                 }
             
@@ -76,7 +84,9 @@ namespace HotelManagement.API.Controllers
         [HttpDelete("{bookingId}")]
         public async Task<IActionResult> DeleteBooking(int bookingId)
         {
+            logger.LogInformation("Delete of booking");
             await bookingService.DeleteBooking(bookingId);
+            logger.LogInformation("Room booked by user is deleted");
             return NoContent();
         }
 
@@ -85,6 +95,7 @@ namespace HotelManagement.API.Controllers
         [HttpPut("{bookingId}")]
         public async Task<IActionResult> UpdateBooking([FromBody] BookingVm vm, int bookingId)
         {
+            logger.LogInformation("update of room booking");
             var book = await bookingService.GetBooking(bookingId);
             if(book == null)
                 return BadRequest();
@@ -96,7 +107,7 @@ namespace HotelManagement.API.Controllers
             };
 
             await bookingService.UpdateBooking(booking);
-
+            logger.LogInformation("room booking updated by user");
             return Accepted(booking);
 
         }
