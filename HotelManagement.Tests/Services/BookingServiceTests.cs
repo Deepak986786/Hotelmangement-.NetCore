@@ -1,4 +1,5 @@
-﻿using FluentAssertions;
+﻿using Castle.Core.Logging;
+using FluentAssertions;
 using HotelManagement.API.Controllers;
 using HotelManagement.Models;
 using HotelManagement.Repository;
@@ -7,6 +8,7 @@ using HotelManagement.Tests.MockData;
 using HotelManagement.Utils;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -20,6 +22,7 @@ namespace HotelManagement.Tests.Services
     {
         private BookingServiceV1 sut;
         private Mock<IRepository<Booking, int>> bookingRepository;
+        private ILogger<BookingServiceV1> logger;
         /// <summary>
         /// The below test method tests the getbookings method of booking service 
         /// by mocking the booking repository
@@ -27,6 +30,7 @@ namespace HotelManagement.Tests.Services
         public BookingServiceTests()
         {
             bookingRepository = new Mock<IRepository<Booking, int>>();
+            logger = Mock.Of<ILogger<BookingServiceV1>>();
         }
         [Fact]
         public async Task GetAllBookings_ReturnAllBookings()
@@ -35,7 +39,7 @@ namespace HotelManagement.Tests.Services
             bookingRepository = new Mock<IRepository<Booking,int>>();
             bookingRepository.Setup(b => b.GetAll())
                     .Returns(Task.FromResult(BookingsMockData.GetBookings()));
-            sut = new BookingServiceV1(bookingRepository.Object);
+            sut = new BookingServiceV1(bookingRepository.Object,logger);
 
 
             // Act
@@ -52,7 +56,7 @@ namespace HotelManagement.Tests.Services
             bookingRepository = new Mock<IRepository<Booking, int>>();
             bookingRepository.Setup(b => b.GetById(1))
                     .Returns(Task.FromResult(BookingsMockData.GetBooking(1)));
-            sut = new BookingServiceV1(bookingRepository.Object);
+            sut = new BookingServiceV1(bookingRepository.Object,logger);
 
             var expected = BookingsMockData.GetBooking(1);
             // Act
@@ -69,7 +73,7 @@ namespace HotelManagement.Tests.Services
             bookingRepository = new Mock<IRepository<Booking, int>>();
             bookingRepository.Setup(b => b.GetById(-1))
                     .Returns(Task.FromResult(BookingsMockData.GetBooking(-1)));
-            sut = new BookingServiceV1(bookingRepository.Object);
+            sut = new BookingServiceV1(bookingRepository.Object,logger);
 
             var expected = BookingsMockData.GetBooking(-1);
            
@@ -89,7 +93,7 @@ namespace HotelManagement.Tests.Services
             var booking = BookingsMockData.GetBooking(1);
             bookingRepository.Setup(b => b.Add(booking))
                     .Returns(Task.FromResult(BookingsMockData.GetBooking(1)));
-            var sut = new BookingServiceV1(bookingRepository.Object);
+            var sut = new BookingServiceV1(bookingRepository.Object, logger);
 
             var expected = BookingsMockData.GetBooking(1);
             // Act
@@ -106,7 +110,7 @@ namespace HotelManagement.Tests.Services
             var booking = BookingsMockData.GetBooking(1);
             bookingRepository.Setup(b => b.Remove(booking.Id)).Equals(1);
                   
-            var sut = new BookingServiceV1(bookingRepository.Object);
+            var sut = new BookingServiceV1(bookingRepository.Object, logger);
 
 
             // Act

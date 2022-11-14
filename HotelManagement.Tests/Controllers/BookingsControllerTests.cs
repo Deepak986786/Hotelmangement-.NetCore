@@ -37,7 +37,7 @@ namespace HotelManagement.Tests.Controllers
         public async Task GetAllBookings_ShouldReturn200Status()
         {
             // Arrange
-            // var bookingService = new Mock<IBookingService>();
+           
             bookingService.Setup(x => x.GetAllBookings())
                 .Returns(Task.FromResult(BookingsMockData.GetBookings()));
             // sut - system under test is recommended naming convention 
