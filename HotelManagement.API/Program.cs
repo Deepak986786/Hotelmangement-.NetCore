@@ -60,10 +60,12 @@ namespace HotelManagement.API
                 options.UseSqlServer(builder.Configuration.GetConnectionString("HotelManagementEF"));
             });
 
+            // Configuring logging.
+            builder.Host.ConfigureLogging(logging => logging.AddLog4Net("log4net.config"));
            
 
 
-            //add repository and services to the Service Collection
+            //add repository and services to the Service Collection.
             builder.Services.AddTransient<IUserService, UserServiceV1>();
             builder.Services.AddTransient<IRepository<User, string>,UserEFRepository>();
 
@@ -71,15 +73,11 @@ namespace HotelManagement.API
             builder.Services.AddTransient<IBookingService, BookingServiceV1>();
             builder.Services.AddTransient<IRepository<Booking, int>,BookingEFRepository>();
 
-
-            builder.Host.ConfigureLogging(logging => logging.AddLog4Net("log4net.config"));
+           
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
-
-           
-
 
             var app = builder.Build();
 
@@ -90,9 +88,6 @@ namespace HotelManagement.API
                 app.UseSwaggerUI();
             }
 
-            app.UseAuthentication();
-
-            app.UseAuthorization();
             app.UseCors(opt =>
             {
                 opt.AllowAnyHeader();
@@ -102,7 +97,9 @@ namespace HotelManagement.API
 
             app.UseHttpsRedirection();
 
-            
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
 
             app.MapControllers();

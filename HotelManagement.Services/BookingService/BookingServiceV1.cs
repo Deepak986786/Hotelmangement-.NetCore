@@ -16,9 +16,6 @@ namespace HotelManagement.Services.BookingService
 
 
         // Constructor with repository dependency injection
-       
-
-
         public BookingServiceV1(IRepository<Booking, int> bookingRepository)
 
         {
@@ -46,9 +43,9 @@ namespace HotelManagement.Services.BookingService
 
         public async Task<List<Booking>> GetAllBookings()
         {
-           var bookings=  await _bookingRepository.GetAll();
+           var bookings =  await _bookingRepository.GetAll();
 
-            return bookings;
+           return bookings;
 
         }
 

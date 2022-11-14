@@ -31,11 +31,11 @@ namespace HotelManagement.API.Controllers
 
 
         [HttpGet]
-
         public async Task<IActionResult> GetBookings()
         {
             var result = await bookingService.GetAllBookings();
-
+            if (result.Count == 0)
+                return NoContent();
             return Ok(result);
         }
 
@@ -44,9 +44,6 @@ namespace HotelManagement.API.Controllers
         [Authorize]
         public async Task<IActionResult> Create([FromBody] BookingVm vm)
         {
-
-           
-
             var Bookings= await bookingService.GetAllBookings();
             var totalBookings= Bookings.Count;
 
@@ -60,8 +57,8 @@ namespace HotelManagement.API.Controllers
                 {
                     UserId = vm.UserId,
                     NumberOfDaysStay = vm.NumberOfDaysStay,
-                    RoomNo = totalBookings + 1,
-                    Price = vm.NumberOfDaysStay * price
+                    Price = vm.NumberOfDaysStay * price,
+                    BookingDate = DateTime.Today
                     
                  };
 
@@ -91,7 +88,6 @@ namespace HotelManagement.API.Controllers
             {   Id = bookingId,
                 UserId = vm.UserId,
                 NumberOfDaysStay = vm.NumberOfDaysStay,
-                RoomNo = book.RoomNo,
                 Price = vm.NumberOfDaysStay * (Convert.ToInt32(RoomDetails.ResourceManager.GetString("Price")))
             };
 
