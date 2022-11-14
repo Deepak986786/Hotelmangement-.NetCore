@@ -52,10 +52,6 @@ namespace HotelManagement.Tests.MockData
         }
       
 
-        public static LoginInfo NewLoginInfo()
-        {
-            
-
-        }
+      
     }
 }

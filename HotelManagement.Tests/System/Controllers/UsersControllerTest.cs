@@ -31,8 +31,5 @@ namespace HotelManagement.Tests.System.Controllers
             users = UserMockData.GetUsers();
         }
 
-        [Fact]
-        public async Task 
-
     }
 }

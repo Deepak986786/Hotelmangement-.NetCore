@@ -2,6 +2,7 @@
 using HotelManagement.Repository;
 using HotelManagement.Tests.MockData;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace HotelManagement.Tests.System.Repositories
     {
 
         protected readonly DataBaseContext _context;
+        private readonly ILogger<UserEFRepositoryTest> _logger;
 
         public UserEFRepositoryTest()
         {
@@ -33,11 +35,11 @@ namespace HotelManagement.Tests.System.Repositories
             _context.Users.AddRange(UserMockData.GetUsers());
             _context.SaveChanges();
 
-            var sut = new UserEFRepository(_context);
+            //var sut = new UserEFRepository(_context,_logger);
 
 
             //Act
-            var result = await sut.GetAll();
+           // var result = await sut.GetAll();
 
             //Assert
            // result.Should().HaveCount(UserMockData.GetUsers().Count);
