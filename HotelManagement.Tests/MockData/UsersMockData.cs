@@ -104,12 +104,27 @@ namespace HotelManagement.Tests.MockData
             {
                 Name = "Srilakshmi",
                 Email = "srilakshmi27272@gmail.com",
+                Password = "1234",
                 ProfilePic = "https://randomuser.me/api/portraits/women/63.jpg",
                 PhoneNumber = "9164371293",
-                AadhaarId = "973141225798"
+                AadhaarId = "973141225798",
+                UserBookings = new List<Booking>()
             };
         }
+        public static User GetUser()
+        {
+            return new User()
+            {
+                Name = "Divya",
+                Email = "divya@gmail.com",
+                Password="1234",
+                ProfilePic = "https://randomuser.me/api/portraits/women/63.jpg",
+                PhoneNumber = "91643713293",
+                AadhaarId = "453141225798",
+                UserBookings = new List<Booking>()
+            };
         }
+    }
     }
 
 

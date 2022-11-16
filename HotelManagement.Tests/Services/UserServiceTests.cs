@@ -14,17 +14,22 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Tests.Services
 {
+    // The class contains the test methods of user service.
     public class UserServiceTests
     {
         private UserServiceV1 sut;
         private Mock<IRepository<User, string>> userRepository;
         private ILogger<UserServiceV1> logger;
-
+        // The constructor initializes the mock instance of user repository and logger
         public UserServiceTests()
         {
             userRepository = new Mock<IRepository<User, string>>();
             logger = Mock.Of<ILogger<UserServiceV1>>();
         }
+        /// <summary>
+        /// The below test method tests the GetAllUsers method of user service  with the mock user repository
+        /// and asserts the count of result
+        /// </summary>
 
         [Fact]
         public async Task GetAllUsers_ReturnsListOfUsers()
@@ -36,9 +41,13 @@ namespace HotelManagement.Tests.Services
             // Act
             var result = sut.GetAllUsers().Result;
             // Assert
-            Assert.Equal(2, result.Count);
+            Assert.Equal(UsersMockData.GetAllUsers().Count, result.Count);
 
         }
+        /// <summary>
+        /// The below test method tests the AddUser method of user service with the mock user repository
+        /// and asserts the mail from result
+        /// </summary>
         [Fact]
         public async Task AddUser_AddsUserToUserRepository()
         {
@@ -49,8 +58,12 @@ namespace HotelManagement.Tests.Services
             // Act
             var result = sut.AddUser(user).Result;
             // Assert
-            Assert.NotNull(result);
+            Assert.Equal(user.Email, result.Email);
         }
+        /// <summary>
+        /// The below test method tests the GetUserByEmail method of user service with the mock user repository
+        /// and asserts the email value
+        /// </summary>
         [Fact]
         public async Task GetUserByEmail_GetsUserFromRepository()
         {
@@ -63,7 +76,10 @@ namespace HotelManagement.Tests.Services
             // Assert
             Assert.Equal(user.Email,result.Email);
         }
-
+        /// <summary>
+        /// The below test method tests the GetUserByEmail method of user service with the mock user repository
+        /// for throwing exception
+        /// </summary>
         [Fact]
         public async Task GetUserByEmail_ThorwsExceptionForInvalidEmail()
         {

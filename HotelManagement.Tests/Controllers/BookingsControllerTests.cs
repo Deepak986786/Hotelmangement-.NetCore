@@ -15,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Tests.Controllers
 {
+
+    // The class comprises testmethods for booking controller methods. 
     public class BookingsControllerTests
     {
         /// <summary>
@@ -25,13 +27,19 @@ namespace HotelManagement.Tests.Controllers
         private Mock<IBookingService> bookingService;
         private IConfiguration _configuration;
         private ILogger<BookingsController> _logger;
-     
+        // The constructor initializes the instance of booking service, configuration and logger.
         public BookingsControllerTests()
         {
             bookingService = new Mock<IBookingService>();
             _configuration = Mock.Of<IConfiguration>();
             _logger = Mock.Of<ILogger<BookingsController>>();
         }
+
+        /// <summary>
+        /// The below test method tests the GetAllBookings method of bookings controller
+        /// by mocking booking service and asserts the status code for Ok method
+        /// </summary>
+
 
         [Fact]
         public async Task GetAllBookings_ShouldReturn200Status()
@@ -51,7 +59,11 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(200, result.StatusCode);
             
         }
-        
+
+        /// <summary>
+        /// The below test method tests the GetAllBookings method of bookings controller for 204 status code
+        /// by mocking booking service and asserts the status code for NoContent 
+        /// </summary>
 
         [Fact]
         public async Task GetAllBookings_Should_Return204NoContentStatusForEmptyData()
@@ -69,6 +81,10 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(204, result.StatusCode);
             bookingService.Verify(_ => _.GetAllBookings(), Times.Exactly(1));
         }
+        /// <summary>
+        /// The below test method tests the AddBooking method of bookings controller for 201 status code
+        /// by mocking booking service and asserts the status code for CreatedResult
+        /// </summary>
 
         [Fact]
         public async Task AddBooking_Should_Return201ForSuccessfulBooking()
@@ -91,29 +107,10 @@ namespace HotelManagement.Tests.Controllers
             // Assert
             result.StatusCode.Should().Be(201);
         }
-
-        [Fact]
-        public async Task AddBooking_Should_Return400WhenRoomsAreNotAvailable()
-        {
-            // Arrange
-
-            var booking = BookingsMockData.GetBookings().First();
-            var bookingModel = BookingsMockData.GetBookingVms().First();
-
-            bookingService.Setup(b => b.GetAllBookings()).ReturnsAsync(BookingsMockData.GetBookings());
-            bookingService.Setup(b => b.AddBooking(booking))
-                .ReturnsAsync(booking);
-            // sut - system under test is recommended naming convention 
-            sut = new BookingsController(bookingService.Object, _configuration, _logger);
-
-            // Act
-            var result = (CreatedResult)await sut.Create(bookingModel);
-
-
-            // Assert
-            result.StatusCode.Should().Be(201);
-        }
-
+        /// <summary>
+        /// The below test method tests the DeleteBooking method of bookings controller for 204 status code
+        /// by mocking booking service and asserts the status code for NoContentResult
+        /// </summary>
         [Fact]
         public async Task DeleteBooking_Should_Return204NoContentStatusOnSuccessfulDeletion()
         {
@@ -129,6 +126,10 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(204, result.StatusCode);
 
         }
+        /// <summary>
+        /// The below test method tests the UpdateBooking method of bookings controller for 202 status code
+        /// by mocking booking service and asserts the status code for AcceptedResult
+        /// </summary>
         [Fact]
         public async Task UpdateBooking_Should_Return202OnSuccessfulUpdation()
         {
@@ -149,6 +150,11 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(202, result.StatusCode);
 
         }
+        /// <summary>
+        /// The below test method tests the UpdateBooking method of bookings controller for 400 status code
+        /// for invalid booking id by mocking booking service 
+        /// and asserts the status code for BadRequestResult
+        /// </summary>
         [Fact]
         public async Task UpdateBooking_Should_Return400ForInvalidBookingId()
         {

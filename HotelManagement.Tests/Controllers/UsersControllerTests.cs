@@ -18,16 +18,22 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Tests.Controllers
 {
+    // The class comprises testmethods for user controller methods. 
     public class UsersControllerTests
     {
         private IConfiguration _configuration;
         private ILogger<UsersController> _logger;
+        // The constructor initializes the mock instance of IConfiguration and ILogger
         public UsersControllerTests()
         {
             _configuration = Mock.Of<IConfiguration>();
             _logger = Mock.Of<ILogger<UsersController>>();
         }
-
+        /// <summary>
+        /// The below test method tests the GetUser method of users controller for 200 status code
+        /// by mocking users service 
+        /// and asserts the status code for OkObjectResult
+        /// </summary>
         [Fact]
         public async Task GetUser_ShouldReturn200StatusForRegisteredUser()
         {
@@ -49,6 +55,11 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(200, result.StatusCode);
 
         }
+        /// <summary>
+        /// The below test method tests the GetAllUsers method of users controller for 200 status code
+        /// by mocking user service 
+        /// and asserts the status code for OkObjectResult
+        /// </summary>
         [Fact]
         public async Task GetAllUsers_ShouldReturn200StatusForRegisteredUser()
         {
@@ -66,6 +77,11 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(200, result.StatusCode);
 
         }
+        /// <summary>
+        /// The below test method tests the GetAllUsers method of users controller for 204 status code
+        /// by mocking user service 
+        /// and asserts the status code for NoContentResult
+        /// </summary>
         [Fact]
         public async Task GetAllUsers_Should_Return204NoContentStatusForEmptyData()
         {
@@ -82,6 +98,11 @@ namespace HotelManagement.Tests.Controllers
             Assert.Equal(204, result.StatusCode);
             userService.Verify(_ => _.GetAllUsers(), Times.Exactly(1));
         }
+        /// <summary>
+        /// The below test method tests the Register method of users controller for 200 status code
+        /// for successful registration by mocking users service 
+        /// and asserts the status code for OkObjectResult
+        /// </summary>
         [Fact]
         public async Task Register_ShouldReturn200ForSuccessfulRegistration()
         {

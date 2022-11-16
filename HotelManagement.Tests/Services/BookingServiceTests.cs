@@ -18,20 +18,22 @@ using System.Threading.Tasks;
 
 namespace HotelManagement.Tests.Services
 {
+    // The class contains the test methods of user service.
     public class BookingServiceTests 
     {
         private BookingServiceV1 sut;
         private Mock<IRepository<Booking, int>> bookingRepository;
         private ILogger<BookingServiceV1> logger;
-        /// <summary>
-        /// The below test method tests the getbookings method of booking service 
-        /// by mocking the booking repository
-        /// </summary>
+        // The constructor initializes the mock of booking repository and logger
         public BookingServiceTests()
         {
             bookingRepository = new Mock<IRepository<Booking, int>>();
             logger = Mock.Of<ILogger<BookingServiceV1>>();
         }
+        /// <summary>
+        /// The below test method tests the getbookings method of booking service 
+        /// by mocking the booking repository
+        /// </summary>
         [Fact]
         public async Task GetAllBookings_ReturnAllBookings()
         {
@@ -46,9 +48,12 @@ namespace HotelManagement.Tests.Services
             var result = sut.GetAllBookings().Result;
 
             // Assert
-            Assert.Equal(3, result.Count);
+            Assert.Equal(BookingsMockData.GetBookings().Count, result.Count);
         }
-
+        /// <summary>
+        /// The below test method tests the getbooking method of booking service 
+        /// by mocking the booking repository
+        /// </summary>
         [Fact]
         public async Task GetBooking_ReturnsBookingForValidBookingId()
         {
@@ -65,8 +70,11 @@ namespace HotelManagement.Tests.Services
             // Assert
             Assert.NotNull(result);
         }
-
-        [Fact(Skip ="Not yet fully implemented")]
+        /// <summary>
+        /// The below test method tests the getbooking method of booking service for invalid booking id
+        /// by mocking the booking repository
+        /// </summary>
+        [Fact]
         public async Task GetBooking_ThrowsInvalidIdExceptionForInvalidBookingId()
         {
             // Arrange
@@ -79,12 +87,16 @@ namespace HotelManagement.Tests.Services
            
 
             // Assert
-            Assert.Throws<InvalidIdException>(() =>
+            Assert.ThrowsAsync<InvalidIdException>(async() =>
             {
                 // Act
                 var result = sut.GetBooking(-1);
             });
         }
+        /// <summary>
+        /// The below test method tests the add booking method of booking service 
+        /// by mocking the booking repository
+        /// </summary>
         [Fact]
         public async Task AddBooking_AddsBookingInRepository()
         {
@@ -102,6 +114,10 @@ namespace HotelManagement.Tests.Services
             // Assert
             Assert.NotNull(result);
         }
+        /// <summary>
+        /// The below test method tests the delete booking method of booking service 
+        /// by mocking the booking repository
+        /// </summary>
         [Fact]
         public async Task DeleteBooking_DeleteBookingFromRepository()
         {
