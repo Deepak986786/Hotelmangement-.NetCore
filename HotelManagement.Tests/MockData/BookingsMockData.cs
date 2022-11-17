@@ -17,15 +17,15 @@ namespace HotelManagement.Tests.MockData
                 new Booking
                 {
                     Id = 1,
-                    UserId = "srilakshmi27272@gmail.com",
+                    UserId = "amirtha@gmail.com",
            
-                    NumberOfDaysStay = 1,
+                    NumberOfDaysStay = 2,
                     Price = 500,
                     BookingDate = DateTime.Today
                 },
                 new Booking {
                     Id = 2,
-                    UserId = "santhosh@gmail.com",
+                    UserId = "aadeesh@gmail.com",
                     NumberOfDaysStay = 3,
                     Price = 1500,
                     BookingDate = DateTime.Today
@@ -50,7 +50,7 @@ namespace HotelManagement.Tests.MockData
             {
                 new BookingVm
                 {
-                    UserId = "srilakshmi27272@gmail.com",
+                    UserId = "amirtha@gmail.com",
                     NumberOfDaysStay = 1
                     
                 },
@@ -78,7 +78,7 @@ namespace HotelManagement.Tests.MockData
             return new Booking
             {
                 Id = 1,
-                UserId = "srilakshmi27272@gmail.com",
+                UserId = "amirtha@gmail.com",
                 NumberOfDaysStay = 1,
                 Price = 500,
                 BookingDate = DateTime.Today

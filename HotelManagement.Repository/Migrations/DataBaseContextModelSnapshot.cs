@@ -86,7 +86,7 @@ namespace HotelManagement.Repository.Migrations
             modelBuilder.Entity("HotelManagement.Models.Booking", b =>
                 {
                     b.HasOne("HotelManagement.Models.User", null)
-                        .WithMany("userBookings")
+                        .WithMany("UserBookings")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -94,7 +94,7 @@ namespace HotelManagement.Repository.Migrations
 
             modelBuilder.Entity("HotelManagement.Models.User", b =>
                 {
-                    b.Navigation("userBookings");
+                    b.Navigation("UserBookings");
                 });
 #pragma warning restore 612, 618
         }

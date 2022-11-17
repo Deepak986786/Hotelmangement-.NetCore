@@ -1,20 +1,10 @@
-﻿using Castle.Core.Logging;
-using FluentAssertions;
-using HotelManagement.API.Controllers;
-using HotelManagement.Models;
+﻿using HotelManagement.Models;
 using HotelManagement.Repository;
 using HotelManagement.Services.BookingService;
 using HotelManagement.Tests.MockData;
 using HotelManagement.Utils;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HotelManagement.Tests.Services
 {

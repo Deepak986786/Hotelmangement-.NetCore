@@ -1,17 +1,12 @@
 ﻿using FluentAssertions;
 using HotelManagement.API.Controllers;
 using HotelManagement.Services.BookingService;
-using HotelManagement.Services.UserService;
 using HotelManagement.Tests.MockData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HotelManagement.Tests.Controllers
 {

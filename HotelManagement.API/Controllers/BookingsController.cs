@@ -1,7 +1,6 @@
 ﻿using HotelManagement.Models;
 using HotelManagement.Services.BookingService;
 using Microsoft.AspNetCore.Mvc;
-using System.Resources;
 using HotelManagement.Utils;
 using HotelManagement.API.ViewModel;
 using Microsoft.AspNetCore.Authorization;

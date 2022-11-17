@@ -15,12 +15,12 @@ namespace HotelManagement.Tests.MockData
             return new List<User> {
             new User()
             {
-                Name = "Srilakshmi",
-                Email = "srilakshmi27272@gmail.com",
+                Name = "Amirtha",
+                Email = "amirtha@gmail.com",
                 Password="1234",
                 ProfilePic = "https://randomuser.me/api/portraits/women/63.jpg",
-                PhoneNumber = "9164371293",
-                AadhaarId = "973141225798",
+                PhoneNumber = "1234567890",
+                AadhaarId = "123456789012",
                 UserBookings=new List<Booking>()
             },
             new User()
@@ -29,7 +29,7 @@ namespace HotelManagement.Tests.MockData
                 Email = "santohsh@gmail.com",
                 Password="1234",
                 ProfilePic = "https://randomuser.me/api/portraits/men/14.jpg",
-                PhoneNumber = "9133792145",
+                PhoneNumber = "9876567890",
                 AadhaarId = "234812347546",
                 UserBookings=new List<Booking>()
             }
@@ -45,11 +45,11 @@ namespace HotelManagement.Tests.MockData
             return new List<UserViewModel> {
             new UserViewModel()
             {
-                Name = "Srilakshmi",
-                Email = "srilakshmi27272@gmail.com",
+                Name = "Amirtha",
+                Email = "amirtha@gmail.com",
                 Password="1234",
                 ProfilePic = "https://randomuser.me/api/portraits/women/63.jpg",
-                PhoneNumber = "9164371293",
+                PhoneNumber = "9134567890",
                 AadhaarId = "973141225798",
               
             },
@@ -70,10 +70,10 @@ namespace HotelManagement.Tests.MockData
             return new List<UserInfo> {
             new User()
             {
-                Name = "Srilakshmi",
-                Email = "srilakshmi27272@gmail.com",
+                Name = "amirtha",
+                Email = "amirtha@gmail.com",
                 ProfilePic = "https://randomuser.me/api/portraits/women/63.jpg",
-                PhoneNumber = "9164371293",
+                PhoneNumber = "9881234567",
                 AadhaarId = "973141225798"
             },
             new User()
@@ -102,8 +102,8 @@ namespace HotelManagement.Tests.MockData
         {
             return new User()
             {
-                Name = "Srilakshmi",
-                Email = "srilakshmi27272@gmail.com",
+                Name = "Amirtha",
+                Email = "amirtha@gmail.com",
                 Password = "1234",
                 ProfilePic = "https://randomuser.me/api/portraits/women/63.jpg",
                 PhoneNumber = "9164371293",
