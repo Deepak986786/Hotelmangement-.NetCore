@@ -51,6 +51,7 @@ namespace HotelManagement.Tests.MockData
 
         }
 
+
         public static UserViewModel GetViewModel()
         {
             return new UserViewModel
@@ -83,6 +84,7 @@ namespace HotelManagement.Tests.MockData
         {
             return new List<User>();
         }
+
       
 
       
