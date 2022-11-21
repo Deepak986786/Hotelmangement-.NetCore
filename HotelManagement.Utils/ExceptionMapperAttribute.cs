@@ -13,7 +13,6 @@ namespace HotelManagement.Utils
     public class ExceptionMapperAttribute:Attribute,IExceptionFilter
     {
 
-            private readonly ILogger<ExceptionMapperAttribute> logger;
             public Type ExceptionType { get; set; }
             public int StatusCode { get; set; }
 
@@ -32,17 +31,17 @@ namespace HotelManagement.Utils
                     if (string.IsNullOrEmpty(Message))
                     {
                         message = Message;
-                       // logger.LogError(message);
+                    
                     }
                     else if (IncludeExceptionMessage)
                     {
                         message = context.Exception.Message;
-                        // logger.LogError(message);
+                      
                     }
                     else
                     {
                         message = "Some Error Occured";
-                        // logger.LogError(message);
+               
                     }
                     context.Result = new JsonResult(new
                     {

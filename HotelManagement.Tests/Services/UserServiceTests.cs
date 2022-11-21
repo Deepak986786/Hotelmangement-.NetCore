@@ -81,7 +81,7 @@ namespace HotelManagement.Tests.Services
         /// for throwing exception
         /// </summary>
         [Fact]
-        public async Task GetUserByEmail_ThorwsExceptionForInvalidEmail()
+        public async Task GetUserByEmail_ThrowsExceptionForInvalidEmail()
         {
             // Arrange
             var user = UsersMockData.GetAllUsers().First();

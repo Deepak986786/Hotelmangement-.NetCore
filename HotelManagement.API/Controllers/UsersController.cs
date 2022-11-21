@@ -97,7 +97,6 @@ namespace HotelManagement.API.Controllers
             var claims = new[] {
                     new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                //new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                     new Claim("Name", user.Name),
                     new Claim("Email", user.Email),
                     
@@ -148,6 +147,18 @@ namespace HotelManagement.API.Controllers
             if (users.Count == 0)
                 return NoContent();
             return Ok(users);
+        }
+ 	   /// <summary>
+        /// validate the email id whether the email is already registered or not
+        /// </summary>
+        /// <returns>user or empty data</returns>
+	   [HttpGet("validate/{email}")]
+        public async Task<IActionResult> Validate(string email)
+        {
+            var user = await userService.GetUserByEmail(email);
+            if(user != null)
+            	return Ok(user);
+		  return NotFound();
         }
     }
 }

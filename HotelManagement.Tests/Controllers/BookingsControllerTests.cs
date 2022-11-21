@@ -1,17 +1,12 @@
 ﻿using FluentAssertions;
 using HotelManagement.API.Controllers;
 using HotelManagement.Services.BookingService;
-using HotelManagement.Services.UserService;
 using HotelManagement.Tests.MockData;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace HotelManagement.Tests.Controllers
 {
@@ -94,8 +89,8 @@ namespace HotelManagement.Tests.Controllers
             var booking = BookingsMockData.GetBookings().First();
             var bookingModel = BookingsMockData.GetBookingVms().First();
 
-            bookingService.Setup(b => b.GetAllBookings()).ReturnsAsync(BookingsMockData.GetBookings());
-            bookingService.Setup(b => b.AddBooking(booking))
+             bookingService.Setup(b => b.GetAllBookings()).ReturnsAsync(BookingsMockData.GetBookings());
+             bookingService.Setup(b => b.AddBooking(booking))
                 .ReturnsAsync(booking);
             // sut - system under test is recommended naming convention 
              sut = new BookingsController(bookingService.Object, _configuration, _logger);
