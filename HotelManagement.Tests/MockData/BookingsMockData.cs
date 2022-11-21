@@ -43,9 +43,23 @@ namespace HotelManagement.Tests.MockData
         };
         }
 
+        public static Booking GetBooking()
+        {
+            return new Booking
+            {
+                Id = 4,
+                UserId = "santhosh1@gmail.com",
+                NumberOfDaysStay = 3,
+                Price = 1500,
+                BookingDate = DateTime.Today
+
+            };
+        }
+
         public static List<Booking> GetEmptyBookings()
         {
             return new List<Booking>();
         }
+        
     }
 }

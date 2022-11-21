@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HotelManagement.Repository
 {
     /// <summary>
@@ -102,3 +103,4 @@ namespace HotelManagement.Repository
         }
     }
 }
+

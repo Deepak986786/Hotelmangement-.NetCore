@@ -30,7 +30,7 @@ namespace HotelManagement.API
 
             // Adding JWt services Here
 
-            builder
+         builder
         .Services
         .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         .AddJwtBearer(opt =>

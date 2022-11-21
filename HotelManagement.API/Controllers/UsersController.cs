@@ -13,12 +13,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Authentication;
 using System.Security.Claims;
 using System.Text;
+using InvalidCredentialsException = HotelManagement.Utils.InvalidCredentialsException;
 
 namespace HotelManagement.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    
+    [ExceptionMapper(ExceptionType = typeof(InvalidIdException), StatusCode = 404)]
     public class UsersController : ControllerBase
     {
         // Declaring user service
@@ -87,7 +88,7 @@ namespace HotelManagement.API.Controllers
         /// <returns>user</returns>
         /// 
         [HttpPost("login")]
-        [ExceptionMapper(ExceptionType = typeof(InvalidIdException), StatusCode = 401,Message ="No such user exists")]
+        [ExceptionMapper(ExceptionType = typeof(InvalidCredentialsException), StatusCode = 401,Message ="Invalid password")]
         public async Task<IActionResult> Login([FromBody] LoginInfo loginInfo)
         {
             logger.LogInformation("User trying to login");
@@ -128,7 +129,7 @@ namespace HotelManagement.API.Controllers
         /// <param name="email"></param>
         /// <returns>user</returns>
         [HttpGet("{email}")]
-        public async Task<IActionResult> getUser(string email)
+        public async Task<IActionResult> GetUser(string email)
         {
             logger.LogInformation("Getting user details");
             var user = await userService.GetUserByEmail(email);

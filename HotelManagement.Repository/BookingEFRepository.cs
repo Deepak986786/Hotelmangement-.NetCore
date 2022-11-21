@@ -9,7 +9,7 @@ using System.Threading.Tasks;
  
 namespace HotelManagement.Repository
 {
-
+     
     /// <summary>
     /// creating repository which makes an abstraction 
     /// layer between the data access layer and the business 

@@ -17,42 +17,29 @@ namespace HotelManagement.Tests.Controllers
         /// The test method name include methodname+testing scenario name.
         /// This test calls the getallbookings of controller by mocking the booking service
         /// </summary>
-       
-        [Fact]
-        public async Task GetAllBookings_ShouldReturn200Status()
+        private BookingsController sut;
+        private Mock<IBookingService> bookingService;
+        public BookingsControllerTests()
         {
-            // Arrange
-            var bookingService = new Mock<IBookingService>();
-            bookingService.Setup(x => x.GetAllBookings())
-                .Returns(Task.FromResult(BookingsMockData.GetBookings()));
-            // sut - system under test is recommended naming convention 
-            var sut = new BookingsController(bookingService.Object);
+            bookingService = new Mock<IBookingService>();
+        }
 
-            // Act
-            var result = (OkObjectResult) await sut.GetBookings();
+        [Fact]
+        public async Task GetBookingsReturns200ForValidCase()
+        {
+            //Arrange
+            var bookings = BookingsMockData.GetBookings();
+            bookingService.Setup(a => a.GetAllBookings()).ReturnsAsync(bookings);
+            sut = new BookingsController(bookingService.Object);
 
+            //Act
+            var result=(OkObjectResult) await sut.GetBookings();
 
-            // Assert
+            //Assert
+
             Assert.Equal(200, result.StatusCode);
-            
+
         }
-        
 
-        [Fact]
-        public async Task GetAllBookings_Should_Return204NoContentStatusForEmptyData()
-        {
-            // Arrange
-            var bookingService = new Mock<IBookingService>();
-            bookingService.Setup(b => b.GetAllBookings())
-                .Returns(Task.FromResult(BookingsMockData.GetEmptyBookings()));
-            var bookingController = new BookingsController(bookingService.Object);
-
-            // Act
-            var result = (NoContentResult)await bookingController.GetBookings();
-
-            // Assert
-            Assert.Equal(204, result.StatusCode);
-            bookingService.Verify(_ => _.GetAllBookings(), Times.Exactly(1));
-        }
     }
 }

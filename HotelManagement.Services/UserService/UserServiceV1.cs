@@ -56,11 +56,6 @@ namespace HotelManagement.Services.UserService
             logger.LogInformation("DeleteUser method ended in User Service");
         }
 
-        public Task<List<User>> GetAllUsers()
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// The method GetUserByEmail gets the user data from repository
         /// </summary>
