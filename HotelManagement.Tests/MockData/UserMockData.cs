@@ -50,6 +50,41 @@ namespace HotelManagement.Tests.MockData
             
 
         }
+
+
+        public static UserViewModel GetViewModel()
+        {
+            return new UserViewModel
+            {
+                Name = "Gomz2",
+                Email = "gomz2@gmail.com",
+                ProfilePic = "",
+                PhoneNumber = "12345",
+                AadhaarId = "123456",
+                Password = "pass"
+
+
+            };
+        }
+
+        public static User GetUser()
+        {
+            return new User
+            {
+                Name = "Gomz2",
+                Email = "gomz2@gmail.com",
+                ProfilePic = "",
+                PhoneNumber = "12345",
+                AadhaarId = "123456",
+                Password = "pass"
+            };
+        }
+
+        public static List<User> GetUsersEmpty()
+        {
+            return new List<User>();
+        }
+
       
 
       

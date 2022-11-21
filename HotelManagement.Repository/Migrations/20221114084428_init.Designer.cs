@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelManagement.Repository.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    [Migration("20221112153842_Init")]
-    partial class Init
+    [Migration("20221114084428_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

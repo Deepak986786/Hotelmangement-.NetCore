@@ -37,7 +37,7 @@ namespace HotelManagement.Tests.Controllers
 
 
         [Fact]
-        public async Task GetAllBookings_ShouldReturn200Status()
+        public async Task GetBookingsReturns200ForValidCase()
         {
             // Arrange
            
@@ -46,13 +46,13 @@ namespace HotelManagement.Tests.Controllers
             // sut - system under test is recommended naming convention 
             sut = new BookingsController(bookingService.Object,_configuration,_logger);
 
-            // Act
-            var result = (OkObjectResult) await sut.GetBookings();
+            //Act
+            var result=(OkObjectResult) await sut.GetBookings();
 
+            //Assert
 
-            // Assert
             Assert.Equal(200, result.StatusCode);
-            
+
         }
 
         /// <summary>
