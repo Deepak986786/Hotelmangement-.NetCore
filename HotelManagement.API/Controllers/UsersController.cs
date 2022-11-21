@@ -97,7 +97,6 @@ namespace HotelManagement.API.Controllers
             var claims = new[] {
                     new Claim(JwtRegisteredClaimNames.Sub, configuration["Jwt:Subject"]),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                //new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                     new Claim("Name", user.Name),
                     new Claim("Email", user.Email),
                     
@@ -124,7 +123,7 @@ namespace HotelManagement.API.Controllers
         }
 
         /// <summary>
-        /// API getUser method takes user email and get user details from user service
+        /// API GetUser method takes user email and get user details from user service
         /// </summary>
         /// <param name="email"></param>
         /// <returns>user</returns>
@@ -136,6 +135,30 @@ namespace HotelManagement.API.Controllers
             if (user == null)
                 return NotFound();
             return Ok(user);
+        }
+        /// <summary>
+        /// Api GetAllUsers get all users from user service
+        /// </summary>
+        /// <returns>users or empty data</returns>
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers()
+        {
+            var users= await userService.GetAllUsers();
+            if (users.Count == 0)
+                return NoContent();
+            return Ok(users);
+        }
+ 	   /// <summary>
+        /// validate the email id whether the email is already registered or not
+        /// </summary>
+        /// <returns>user or empty data</returns>
+	   [HttpGet("validate/{email}")]
+        public async Task<IActionResult> Validate(string email)
+        {
+            var user = await userService.GetUserByEmail(email);
+            if(user != null)
+            	return Ok(user);
+		  return NotFound();
         }
     }
 }

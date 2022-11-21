@@ -106,10 +106,11 @@ namespace HotelManagement.Services.UserService
             }
 
         }
-
-        public async Task UpdateUser(User user)
+        public async Task<List<User>> GetAllUsers()
         {
-            await Task.CompletedTask;
+            var users = await repository.GetAll();
+            return users;
         }
+        
     }
 }

@@ -1,6 +1,7 @@
 ﻿using HotelManagement.Models;
 using HotelManagement.Utils;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +21,19 @@ namespace HotelManagement.Repository
     public class BookingEFRepository : IRepository<Booking, int>
 
     {
-        private readonly DataBaseContext context;
+        private readonly DataBaseContext _context;
+        private readonly ILogger<BookingEFRepository> _logger;
 
         /// <summary>
         /// the constructor calling object to pass in an instance of the context
         /// as dependency injection
         /// </summary>
         /// <param name="context"></param>
-        public BookingEFRepository(DataBaseContext context)
+        public BookingEFRepository(DataBaseContext context, ILogger<BookingEFRepository> logger)
         {
-            this.context = context;
+            this._context = context;
+            this._logger = logger;
+           
         }
 
         
@@ -37,16 +41,18 @@ namespace HotelManagement.Repository
         /// <returns>it saves the entity in the services</returns>
         public async Task<Booking> Add(Booking entity)
         {
-            await context.Bookings.AddAsync(entity);
-            await context.SaveChangesAsync();
+            _logger.LogInformation("Calling Add in BookingEF Repository");
+            await _context.Bookings.AddAsync(entity);
+            await _context.SaveChangesAsync();
             return entity;
         }
 
         /// <returns>list of bookings</returns>
         public async Task<List<Booking>> GetAll()
         {
+            _logger.LogInformation("Calling GetAll in BookingEF Repository");
             await Task.CompletedTask;
-            return context.Bookings.ToList();
+            return _context.Bookings.ToList();
         }
 
 
@@ -60,7 +66,8 @@ namespace HotelManagement.Repository
         public async Task<Booking> GetById(int id)
 
         {
-            var booking = await context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
+            _logger.LogInformation("Calling GetById in BookingEF Repository");
+            var booking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == id);
             return booking ?? throw new InvalidIdException(id);
         }
 
@@ -72,11 +79,12 @@ namespace HotelManagement.Repository
         public async Task Remove(int id)
 
         {
+            _logger.LogInformation("Calling Remove in BookingEF Repository");
             var booking = await GetById(id);
             if(booking != null)
             {
-                context.Bookings.Remove(booking);
-                await context.SaveChangesAsync();
+                _context.Bookings.Remove(booking);
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -84,12 +92,14 @@ namespace HotelManagement.Repository
       
         public async Task Save()
         {
-            await context.SaveChangesAsync();
+            _logger.LogInformation("Calling Save in BookingEF Repository");
+            await _context.SaveChangesAsync();
         }
 
         public async Task Update(Booking entity)
         {
-            var oldBooking = await context.Bookings.FirstOrDefaultAsync(b => b.Id == entity.Id);
+            _logger.LogInformation("Calling update in BookingEF Repository");
+            var oldBooking = await _context.Bookings.FirstOrDefaultAsync(b => b.Id == entity.Id);
 
              oldBooking.NumberOfDaysStay = entity.NumberOfDaysStay;
              oldBooking.Price = entity.Price;
