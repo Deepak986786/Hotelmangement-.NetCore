@@ -14,7 +14,10 @@ namespace HotelManagement.API.Controllers
         {
             this.logger = logger;
         }
-
+        /// <summary>
+        /// This api post method saves the client side log information in server side
+        /// </summary>
+        /// <param name="log"></param>
         [HttpPost]
         public IActionResult Log([FromBody] LogDetails log)
         {

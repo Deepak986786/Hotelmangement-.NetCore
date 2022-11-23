@@ -2,6 +2,7 @@
 
 namespace HotelManagement.Services.UserService
 {
+    // Interface IUserService containing method declartions related to user operations.
     public interface IUserService
     {
         public Task<User> AddUser(User user);

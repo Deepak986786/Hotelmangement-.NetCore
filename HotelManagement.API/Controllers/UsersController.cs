@@ -28,7 +28,6 @@ namespace HotelManagement.API.Controllers
         private readonly ILogger<UsersController> logger;
         // Declaring instance of configuration. 
         IConfiguration configuration;
-        private object _configuration;
 
         // Constructor for UsersController with dependency injection of userService, configuration and logger
         public UsersController(
@@ -42,10 +41,7 @@ namespace HotelManagement.API.Controllers
             this.logger = logger;
         
         }
-       /* public UsersController(IUserService userService)
-        {
-            this.userService = userService;
-        }*/
+       
 
         /// <summary>
         /// API Register method takes user properties and add user to the users table
@@ -136,6 +132,7 @@ namespace HotelManagement.API.Controllers
                 return NotFound();
             return Ok(user);
         }
+
         /// <summary>
         /// Api GetAllUsers get all users from user service
         /// </summary>
@@ -148,6 +145,7 @@ namespace HotelManagement.API.Controllers
                 return NoContent();
             return Ok(users);
         }
+
  	   /// <summary>
         /// validate the email id whether the email is already registered or not
         /// </summary>

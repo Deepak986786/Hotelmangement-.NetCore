@@ -33,9 +33,6 @@ namespace HotelManagement.API.Controllers
         /// <param name="booking"></param>
         /// <returns>booking object</returns>
 
-
-
-
         [HttpGet]
         public async Task<IActionResult> GetBookings()
         {

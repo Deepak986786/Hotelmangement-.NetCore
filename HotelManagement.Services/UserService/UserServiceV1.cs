@@ -44,7 +44,7 @@ namespace HotelManagement.Services.UserService
         }
 
         /// <summary>
-        /// The method AddUser passes user entity to the repository
+        /// The method DeleteUser calls the remove method of repository with user entity
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -106,6 +106,11 @@ namespace HotelManagement.Services.UserService
             }
 
         }
+
+        /// <summary>
+        /// This method calls the getAll method of repository
+        /// </summary>
+        /// <returns>list of users</returns>
         public async Task<List<User>> GetAllUsers()
         {
             var users = await repository.GetAll();

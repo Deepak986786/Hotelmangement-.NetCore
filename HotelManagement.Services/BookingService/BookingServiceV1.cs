@@ -14,53 +14,69 @@ namespace HotelManagement.Services.BookingService
 {
     public  class BookingServiceV1  : IBookingService
     {
+        // Declaring instane of IRepository and ILogger.
         private IRepository<Booking, int> _bookingRepository;
-        // Declaring instane of ILogger.
-        private readonly ILogger<BookingServiceV1> logger;
+        
+        private readonly ILogger<BookingServiceV1> _logger;
 
 
-        // Constructor with repository dependency injection
+        // Constructor with repository dependency injection.
         public BookingServiceV1(IRepository<Booking, int> bookingRepository,ILogger<BookingServiceV1> logger)
 
         {
             _bookingRepository = bookingRepository;
-            this.logger = logger;
+            _logger = logger;
 
         }
 
 
         /// <summary>
-        /// this calls the repository of add method
+        /// This method calls the add method of repository
         /// </summary>
         /// <param name="booking"></param>
         /// <returns>booking</returns>
         public async Task<Booking> AddBooking(Booking booking)
         {
-            logger.LogInformation("AddBooking called in Booking Service");
+            _logger.LogInformation("AddBooking called in Booking Service");
             await _bookingRepository.Add(booking);
-            logger.LogInformation("Returning booking from Booking Service");
+            _logger.LogInformation("Returning booking from Booking Service");
             return booking;
         }
 
+        /// <summary>
+        /// This method calls the Remove method of repository
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeleteBooking(int id)
         {
-            logger.LogInformation("DeleteBooking called in Booking Service");
+            _logger.LogInformation("DeleteBooking called in Booking Service");
             await _bookingRepository.Remove(id);
-            logger.LogInformation("DeleteBooking method ended in Booking Service");
+            _logger.LogInformation("DeleteBooking method ended in Booking Service");
         }
 
+        /// <summary>
+        /// This method calls the getall method of booking repository
+        /// </summary>
+        /// <returns>list of bookings</returns>
         public async Task<List<Booking>> GetAllBookings()
         {
-            logger.LogInformation("Get all bookings called in Booking Service");
+            _logger.LogInformation("Get all bookings called in Booking Service");
             var bookings =  await _bookingRepository.GetAll();
 
            return bookings;
 
         }
 
+        /// <summary>
+        /// This method calls getById method of repository 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>booking</returns>
+        /// <exception cref="InvalidIdException"></exception>
         public async Task<Booking> GetBooking(int id)
         {
-            logger.LogInformation("get booking by id called in booking service");
+            _logger.LogInformation("get booking by id called in booking service");
             var booking = await _bookingRepository.GetById(id);
             if (booking!=null)
                 return booking;
@@ -68,7 +84,11 @@ namespace HotelManagement.Services.BookingService
         }
 
 
-
+        /// <summary>
+        /// This method calls the update method of repository
+        /// </summary>
+        /// <param name="booking"></param>
+        /// <returns></returns>
         public async Task UpdateBooking(Booking booking)
         {
             await _bookingRepository.Update(booking);

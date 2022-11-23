@@ -31,7 +31,7 @@ namespace HotelManagement.Repository
             this.logger = logger;
         }
         /// <summary>
-        /// it saves user entity in the users table
+        /// It saves user entity in the users table
         /// </summary>
         /// <param name="entity"></param>
         /// <returns>entity to the services</returns>
@@ -50,7 +50,12 @@ namespace HotelManagement.Repository
         }
 
         
-        
+        /// <summary>
+        /// Retrieve the user based on the email (id) parameter
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>User</returns>
+        /// <exception cref="InvalidIdException">if user is not available</exception>
 
         public async Task<User> GetById(string id)
         {

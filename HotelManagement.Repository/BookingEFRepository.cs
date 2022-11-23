@@ -95,7 +95,10 @@ namespace HotelManagement.Repository
             _logger.LogInformation("Calling Save in BookingEF Repository");
             await _context.SaveChangesAsync();
         }
-
+        /// <summary>
+        /// Update the booking entity fields in the database
+        /// </summary>
+        /// <param name="entity"></param>
         public async Task Update(Booking entity)
         {
             _logger.LogInformation("Calling update in BookingEF Repository");
